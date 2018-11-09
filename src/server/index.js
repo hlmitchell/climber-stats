@@ -3,20 +3,29 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const path = require('path');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-//routers
+// controllers
 const loginController = require('./controllers/loginController.js');
 
+// setup
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname +'./../../'))); //serves the index.html
 
-// login info
+// login routes
 app.post('/login', loginController.login);
-app.get('/login', loginController.checkForLoggedInCookie);
-app.get('/logout', loginController.logout);
+app.delete('/logout', loginController.logout);
 
-app.listen(3000, (err) => {
+// database connection
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, (err) => {
+  if (err) console.log(err);
+  else console.log('Connected to db');
+})
+
+// server connection
+app.listen(process.env.PORT || 3000, (err) => {
   if (err) console.log(err);
   else console.log('Listening on 3000...');
 })
