@@ -16,7 +16,8 @@ app.use(express.static(path.join(__dirname +'./../../'))); //serves the index.ht
 
 // login routes
 app.post('/login', loginController.login, loginController.createUserSession);
-app.delete('/logout', loginController.logout, loginController.createUserSession);
+app.post('/signup', loginController.signup, loginController.createUserSession)
+app.delete('/logout', loginController.logout);
 
 // database connection
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, (err) => {
