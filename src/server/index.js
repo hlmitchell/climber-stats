@@ -15,8 +15,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname +'./../../'))); //serves the index.html
 
 // login routes
-app.post('/login', loginController.login);
-app.delete('/logout', loginController.logout);
+app.post('/login', loginController.login, loginController.createUserSession);
+app.delete('/logout', loginController.logout, loginController.createUserSession);
 
 // database connection
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, (err) => {
