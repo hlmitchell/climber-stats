@@ -10,21 +10,50 @@ module.exports = {
       .then(user => {
         // check if user exists first then decrypt the password to proceed
         if (user && user.checkPassword(req.body.password)) {
-          // create a session which has a default date column
-          Session.create({})
-          .then(session => {
-            // use the unique database session id to create a cookie
-            res.cookie('ssid ', session._id, { httpOnly: true }).send();
-          })
-          .catch(err => {
-            res.sendStatus(500); // server error
-          })
+          // next middleware creates user session
+          next();
         } else res.sendStatus(401); // invalid username or password
       })
       .catch(err => {
         res.sendStatus(500); // server error
       })
     } else res.sendStatus(400); // no username and password keys
+  },
+
+  signup: (req, res, next) => {
+    // body must have username and password attached
+    if (req.body.hasOwnProperty('username') && req.body.hasOwnProperty('password')) {
+      // query the db for the username to see it already exists
+      User.findOne({'username': req.body.username}) 
+      .then(user => {
+        // if the user doesn't exist create the new account
+        if (!user) {
+          User.create({'username': req.body.username, 'password': req.body.password})
+          .then(user => {
+            // next middleware creates user session
+            next();
+          })
+          .catch(err => {
+            res.sendStatus(500); // server error
+          })
+        } else res.sendStatus(403); // username already exists
+      })
+      .catch(err => {
+        res.sendStatus(500); // server error
+      })
+    } else res.sendStatus(400); // no username and password keys on req.body
+  },
+
+  createUserSession: (req, res) => {
+    // create a session which has a default date column
+    Session.create({})
+    .then(session => {
+      // use the unique database session id to create a cookie
+      res.cookie('ssid ', session._id, { httpOnly: true }).send();
+    })
+    .catch(err => {
+      res.sendStatus(500); // server error
+    })
   },
 
   checkForLoggedInCookie: (req, res, next) => {

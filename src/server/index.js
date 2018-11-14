@@ -15,7 +15,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname +'./../../'))); //serves the index.html
 
 // login routes
-app.post('/login', loginController.login);
+app.post('/login', loginController.login, loginController.createUserSession);
+app.post('/signup', loginController.signup, loginController.createUserSession)
 app.delete('/logout', loginController.logout);
 
 // database connection
