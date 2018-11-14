@@ -1,13 +1,23 @@
-const loginController = require('../controllers/loginController.js');
-const superTest = require('supertest');
-const app = require('../index.js');
+const request = require('supertest');
+const { app, server, mongoose } = require('../index.js');
 
-describe('POST /login', function() {
-  test('respond with json', function(done) {
-    request(app)
-      .post('/login')
+describe('Test the /signup route', () => {
+
+  test('respond with 403 if user already exists', async () => {
+    const response = await request(app)
+      .post('/signup')
       .set('Accept', 'application/json')
-      .send({name: 'john'})
-      .expect(200, done);
+      .send({
+        username: 'codesmith', 
+        password: 'ilovetesting'
+      })
+    expect(response.statusCode).toBe(403);
   });
-});
+
+  afterAll((done) => {
+    server.close();
+    mongoose.connection.close()
+  });
+})
+
+  
