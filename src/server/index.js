@@ -29,3 +29,6 @@ app.listen(process.env.PORT || 3000, (err) => {
   if (err) console.log(err);
   else console.log('Listening on 3000...');
 })
+
+// for testing
+module.exports = app;
