@@ -26,7 +26,10 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, (err) => {
 })
 
 // server connection
-app.listen(process.env.PORT || 3000, (err) => {
+const server = app.listen(process.env.PORT || 3000, (err) => {
   if (err) console.log(err);
   else console.log('Listening on 3000...');
 })
+
+// for testing
+module.exports = { app, server, mongoose };

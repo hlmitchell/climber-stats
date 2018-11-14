@@ -8,7 +8,8 @@
     "start:dev": "webpack-dev-server",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon ./src/server/index.js",
-    "start": "concurrently \"npm run server\" \"npm run client\""
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "babel-loader": "^8.0.4",
     "concurrently": "^4.0.1",
     "jest": "^23.6.0",
+    "supertest": "^3.3.0",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
   }
