@@ -8,6 +8,7 @@ require('dotenv').config();
 
 // controllers
 const loginController = require('./controllers/loginController.js');
+const jwtController = require('./controllers/jwtController.js');
 
 // setup
 app.use(bodyParser.json());
@@ -15,9 +16,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname +'./../../'))); //serves the index.html
 
 // login routes
-app.post('/login', loginController.login, loginController.createUserSession);
-app.post('/signup', loginController.signup, loginController.createUserSession)
-app.delete('/logout', loginController.logout);
+app.post('/login', loginController.login, jwtController.createToken);
+app.post('/signup', loginController.signup, jwtController.createToken);
+app.delete('/logout', jwtController.extractToken, jwtController.verifyToken, loginController.logout);
 
 // database connection
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, (err) => {
