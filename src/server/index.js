@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // controllers
-const loginController = require('./controllers/loginController.js');
+const userController = require('./controllers/userController.js');
 const jwtController = require('./controllers/jwtController.js');
 
 // setup
@@ -16,8 +16,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname +'./../../'))); //serves the index.html
 
 // login routes
-app.post('/login', loginController.login, jwtController.createToken);
-app.post('/signup', loginController.signup, jwtController.createToken);
+app.post('/login', userController.login, jwtController.createToken);
+app.post('/signup', userController.signup, jwtController.createToken);
 // logging out will mean deleting the auth token on the client side and then refreshing the page?
 
 // database connection
