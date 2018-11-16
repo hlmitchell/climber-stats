@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 module.exports = {
   createToken: (req, res) => {
     // payload, secret key, expiration, callback
-    jwt.sign({ username: req.body.username }, process.env.JWTKEY, /*, { expiresIn: 120 }*/ (err, token) => {
+    jwt.sign({ username: req.body.username }, process.env.JWT_KEY, /*, { expiresIn: 120 }*/ (err, token) => {
       if (err) res.sendStatus(500); // jwt not created successfully
       else res.json({
         token: token,
@@ -27,7 +27,7 @@ module.exports = {
   },
 
   verifyToken: (req, res, next) => {
-    jwt.verify(res.locals.bearer, process.env.JWTKEY, (err, authData) => {
+    jwt.verify(res.locals.bearer, process.env.JWT_KEY, (err, authData) => {
       if (err) res.sendStatus(403); // forbidden
       else {
         res.locals = { authData };

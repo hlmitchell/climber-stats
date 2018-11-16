@@ -35,6 +35,18 @@ describe('Test the /signup route', () => {
     expect(response.statusCode).toBe(400);
   });
 
+  test('delete the user', async () => {
+    const key = `Bearer ${process.env.TEST_JWT}`;
+    const response = await request(app)
+    .delete('/deleteAccount')
+    .set('Accept', 'application/json')
+    .set('Authorization', key)
+    .send({
+      username: "codesmith"
+    })
+    expect(response.statusCode).toBe(200);
+  })
+
   afterAll((done) => {
     // needed for jest to exit properly
     server.close();

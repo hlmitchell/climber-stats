@@ -46,6 +46,7 @@ module.exports = {
   },
 
   deleteUser: (req, res) => {
+    // usernames are unique so we can delete by username
     if (req.body.hasOwnProperty('username')) {
       User.findOneAndDelete({ 'username': req.body.username })
       .then(user => {
