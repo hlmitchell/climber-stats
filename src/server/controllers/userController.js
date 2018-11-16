@@ -8,6 +8,7 @@ module.exports = {
       User.findOne({'username': req.body.username}) 
       .then(user => {
         // check if user exists first then decrypt the password to proceed
+        console.log(user.checkPassword(req.body.password));
         if (user && user.checkPassword(req.body.password)) {
           // next middleware creates jwt
           res.locals = user;

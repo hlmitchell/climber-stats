@@ -36,9 +36,37 @@ describe('Test user routes', () => {
     });
   });
   
-  // describe('test /login route', () => {
-
-  // })
+  describe('test /login route', () => {
+    test('try to login with improper body', async () => {
+      const response = await request(app)
+      .post('/login')
+      .set('Accept', 'application/json')
+      .send({
+        username: 'codesmith'
+      })
+      expect(response.statusCode).toBe(400);
+    })
+    test('try to login with non existing user', async () => {
+      const response = await request(app)
+      .post('/login')
+      .set('Accept', 'application/json')
+      .send({
+        username: " ",
+        password: " "
+      })
+      expect(response.statusCode).toBe(401);
+    })
+    test('try to login to existing user with wrong password', async () => {
+      const response = await request(app)
+      .post('/login')
+      .set('Accept', 'application/json')
+      .send({
+        username: 'codesmith',
+        password: 'taco'
+      })
+      expect(response.statusCode).toBe(401);
+    })
+  })
 
   describe('test /deleteAccount route', () => {
 
