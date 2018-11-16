@@ -16,7 +16,7 @@ module.exports = {
     //get auth header val
     const authHeader = req.headers.authorization;
     if (authHeader) {
-      // split, the bearer is at index 2
+      // split, the key is at index 1
       const bearer = authHeader.split(' ')[1];
       res.locals = { bearer };
       // goes to verify token
