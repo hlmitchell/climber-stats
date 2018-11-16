@@ -66,10 +66,20 @@ describe('Test user routes', () => {
       })
       expect(response.statusCode).toBe(401);
     })
+    test('try to login with correct username and password', async () => {
+      const response = await request(app)
+      .post('/login')
+      .set('Accept', 'application/json')
+      .send({
+        username: 'codesmith',
+        password: 'ilovetesting'
+      })
+      expect(response.body.token).toBeTruthy();
+      expect(response.statusCode).toBe(200);
+    })
   })
 
   describe('test /deleteAccount route', () => {
-
     test('try to delete user with incorrect jwt', async () => {
       const key = 'Bearer wrongJwt';
       const response = await request(app)
