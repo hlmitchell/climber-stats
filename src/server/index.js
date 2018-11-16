@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname +'./../../'))); //serves the index.ht
 // login routes
 app.post('/login', loginController.login, jwtController.createToken);
 app.post('/signup', loginController.signup, jwtController.createToken);
-app.delete('/logout', jwtController.extractToken, jwtController.verifyToken, loginController.logout);
+// logging out will mean deleting the auth token on the client side and then refreshing the page?
 
 // database connection
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, (err) => {

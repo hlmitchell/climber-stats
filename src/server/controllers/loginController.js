@@ -44,16 +44,5 @@ module.exports = {
         res.sendStatus(500); // server error
       })
     } else res.sendStatus(400); // no username and password keys on req.body
-  },
-
-  logout: (req, res, next) => {
-    // delete session from db
-    Session.findByIdAndDelete(req.body.id)
-    .then(session => {
-      res.send(res.locals.authData);
-    })
-    .catch(err => {
-      res.sendStatus(500);
-    })
   }
 }
