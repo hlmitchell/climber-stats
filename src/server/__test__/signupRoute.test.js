@@ -35,6 +35,18 @@ describe('Test the /signup route', () => {
     expect(response.statusCode).toBe(400);
   });
 
+  test('delete the user', async () => {
+    const key = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvZGVzbWl0aCIsImlhdCI6MTU0MjM5MjQ1MX0.P3vYaWcfhJ8-WJsR919UIDjupnx5-MfAgrLrYvKa8Ig';
+    const response = await request(app)
+    .delete('/deleteAccount')
+    .set('Accept', 'application/json')
+    .set('Authorization', key)
+    .send({
+      username: "codesmith"
+    })
+    expect(response.statusCode).toBe(200);
+  })
+
   afterAll((done) => {
     // needed for jest to exit properly
     server.close();
