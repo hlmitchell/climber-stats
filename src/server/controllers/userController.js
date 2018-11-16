@@ -4,16 +4,26 @@ module.exports = {
   login: (req, res, next) => {
     // body must have username and password attached
     if (req.body.hasOwnProperty('username') && req.body.hasOwnProperty('password')) {
-      // query the db just for the username because we will need to decrypt the password
+      // query the db by the username because we will need to decrypt the password
       User.findOne({'username': req.body.username}) 
       .then(user => {
-        // check if user exists first then decrypt the password to proceed
-        console.log(user.checkPassword(req.body.password));
-        if (user && user.checkPassword(req.body.password)) {
-          // next middleware creates jwt
-          res.locals = user;
-          next();
-        } else res.sendStatus(401); // invalid username or password
+        // check if user actually exists first
+        if (user) {
+          // then compare passwords
+          user.checkPassword(req.body.password)
+          .then((isAMatch) => {
+            if (isAMatch) {
+              res.locals = user;
+              // next middleware creates jwt
+              next();
+            } else {
+              res.sendStatus(401) // invalid password
+            }
+          })
+          .catch(err => {
+            res.sendStatus(500) // server error
+          })
+        } else res.sendStatus(401); // invalid username
       })
       .catch(err => {
         res.sendStatus(500); // server error
