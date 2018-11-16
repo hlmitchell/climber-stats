@@ -54,6 +54,26 @@ describe('Test user routes', () => {
       expect(response.statusCode).toBe(403);
     })
 
+    test('try to delete user with no jwt', async () => {
+      const response = await request(app)
+      .delete('/deleteAccount')
+      .set('Accept', 'application/json')
+      .send({
+        username: "codesmith"
+      })
+      expect(response.statusCode).toBe(403);
+    })
+
+    test('try to delete user with nonexisting username', async () => {
+      const response = await request(app)
+      .delete('/deleteAccount')
+      .set('Accept', 'application/json')
+      .send({
+        taco: 'taco'
+      })
+      expect(response.statusCode).toBe(403);
+    })
+
     test('delete the user', async () => {
       const key = `Bearer ${process.env.TEST_JWT}`;
       const response = await request(app)
