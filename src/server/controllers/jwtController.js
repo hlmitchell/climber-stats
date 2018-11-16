@@ -15,7 +15,7 @@ module.exports = {
   extractToken: (req, res, next) => {
     //get auth header val
     const authHeader = req.headers.authorization;
-    if (!authHeader) {
+    if (authHeader) {
       // split, the bearer is at index 2
       const bearer = authHeader.split(' ')[1];
       res.locals = { bearer };
@@ -26,7 +26,7 @@ module.exports = {
     }
   },
 
-  verifyToken: (req, res) => {
+  verifyToken: (req, res, next) => {
     jwt.verify(res.locals.bearer, 'supersecretkey', (err, authData) => {
       if (err) res.sendStatus(403);
       else {
