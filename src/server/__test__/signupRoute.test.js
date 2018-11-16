@@ -36,7 +36,7 @@ describe('Test the /signup route', () => {
   });
 
   test('delete the user', async () => {
-    const key = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvZGVzbWl0aCIsImlhdCI6MTU0MjQwNzU1Nn0.cOS_0yRfvp8pr-C5RLUkcwZttKG23HEiruw9bH9rvMo';
+    const key = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvZGVzbWl0aCIsImlhdCI6MTU0MjQwODQ3MX0.516sODwIzXtiNUEsipT-QHaN2qpVbxG2_M2WEbS_muQ';
     const response = await request(app)
     .delete('/deleteAccount')
     .set('Accept', 'application/json')
