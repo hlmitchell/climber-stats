@@ -4,7 +4,7 @@ module.exports = {
   createToken: (req, res) => {
     // payload, secret key, expiration, callback
     jwt.sign({ username: req.body.username }, 'tempKey', /*, { expiresIn: 120 }*/ (err, token) => {
-      if (err) res.sendStatus(503); // jwt not created successfully
+      if (err) res.sendStatus(500); // jwt not created successfully
       else res.json({
         token: token,
         id: res.locals.id
