@@ -22,13 +22,13 @@ module.exports = {
       // goes to verify token
       next();
     } else {
-      res.sendStatus(403);
+      res.sendStatus(403); // forbidden
     }
   },
 
   verifyToken: (req, res, next) => {
     jwt.verify(res.locals.bearer, 'supersecretkey', (err, authData) => {
-      if (err) res.sendStatus(403);
+      if (err) res.sendStatus(403); // forbidden
       else {
         res.locals = { authData };
         next();

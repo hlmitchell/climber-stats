@@ -1,5 +1,4 @@
-const Session = require('../schemas/sessionSchema.js');
-const User = require('../schemas/userInfoSchema.js');
+const User = require('../schemas/userSchema.js');
 
 module.exports = {
   login: (req, res, next) => {
@@ -44,5 +43,21 @@ module.exports = {
         res.sendStatus(500); // server error
       })
     } else res.sendStatus(400); // no username and password keys on req.body
+  },
+
+  deleteUser: (req, res) => {
+    if (req.body.hasOwnProperty('username')) {
+      User.findOneAndDelete({ 'username': req.body.username })
+      .then(user => {
+        console.log(user);
+        if (user) res.send(res.locals.authData);
+        else res.sendStatus(404); // not found
+      })
+      .catch(err => {
+        res.sendStatus(500); // server error
+      })
+    } else {
+      res.sendStatus(401) // username not sent in body
+    }
   }
 }
