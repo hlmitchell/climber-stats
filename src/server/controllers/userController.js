@@ -35,12 +35,12 @@ module.exports = {
             next();
           })
           .catch(err => {
-            res.sendStatus(500); // server error
+            res.sendStatus(501); // server error
           })
         } else res.sendStatus(403); // username already exists
       })
       .catch(err => {
-        res.sendStatus(500); // server error
+        res.sendStatus(502); // server error
       })
     } else res.sendStatus(400); // no username and password keys on req.body
   },
