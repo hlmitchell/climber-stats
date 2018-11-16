@@ -49,7 +49,6 @@ module.exports = {
     if (req.body.hasOwnProperty('username')) {
       User.findOneAndDelete({ 'username': req.body.username })
       .then(user => {
-        console.log(user);
         if (user) res.send(res.locals.authData);
         else res.sendStatus(404); // not found
       })
