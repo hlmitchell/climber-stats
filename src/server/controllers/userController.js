@@ -44,6 +44,8 @@ module.exports = {
   },
 
   deleteUser: (req, res, next) => {
+    // delete cookie no matter what
+    res.clearCookie('ssid');
     // usernames are unique so we can delete by username
     if (req.body.hasOwnProperty('username')) {
       User.findOneAndDelete({ 'username': req.body.username })
