@@ -16,7 +16,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname +'./../../'))); //serves the index.html
 
 // login routes
-app.post('/login', userController.login, jwtController.createToken);
+app.post('/login', userController.login, jwtController.createToken, (req, res) => res.json(res.locals));
+
 app.post('/signup', userController.signup, jwtController.createToken);
 // logging out will mean deleting the auth token on the client side and then refreshing the page?
 // should delete from id or username?
