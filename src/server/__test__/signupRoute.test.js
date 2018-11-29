@@ -36,11 +36,10 @@ describe('Test the /signup route', () => {
   });
 
   test('delete the user', async () => {
-    const key = `Bearer ${process.env.TEST_JWT}`;
     const response = await request(app)
     .delete('/deleteAccount')
     .set('Accept', 'application/json')
-    .set('Authorization', key)
+    .set('Cookie', `ssid=${process.env.TEST_JWT}`)
     .send({
       username: "codesmith"
     })
