@@ -28,6 +28,7 @@ module.exports = {
       if (err) res.sendStatus(403); // forbidden
       else {
         res.locals = { authData };
+        // goes to delete user
         next();
       }
     })

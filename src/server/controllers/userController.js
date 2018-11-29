@@ -50,7 +50,7 @@ module.exports = {
     if (req.body.hasOwnProperty('username')) {
       User.findOneAndDelete({ 'username': req.body.username })
       .then(user => {
-        if (user) res.send(res.locals.authData);
+        if (user) next();
         else res.sendStatus(404); // not found
       })
       .catch(err => {
