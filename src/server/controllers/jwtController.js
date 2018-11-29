@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = {
-  createToken: (req, res) => {
+  createToken: (req, res, next) => {
     // payload, secret key, expiration, callback
     jwt.sign({ username: req.body.username }, process.env.JWT_KEY, /*, { expiresIn: 120 }*/ (err, token) => {
       if (err) res.sendStatus(500); // jwt not created successfully

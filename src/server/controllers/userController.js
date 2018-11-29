@@ -43,7 +43,7 @@ module.exports = {
     } else res.sendStatus(400); // no username and password keys on req.body
   },
 
-  deleteUser: (req, res) => {
+  deleteUser: (req, res, next) => {
     // usernames are unique so we can delete by username
     if (req.body.hasOwnProperty('username')) {
       User.findOneAndDelete({ 'username': req.body.username })
