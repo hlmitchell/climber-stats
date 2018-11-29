@@ -9,7 +9,6 @@ module.exports = {
       .then(user => {
         // check if user exists first then decrypt the password to proceed
         if (user && user.checkPassword(req.body.password)) {
-          // next middleware creates jwt
           res.locals = user;
           next();
         } else res.sendStatus(401); // invalid username or password
@@ -30,7 +29,6 @@ module.exports = {
         if (!user) {
           User.create({'username': req.body.username, 'password': req.body.password})
           .then(user => {
-            // next middleware creates user session
             res.locals = user;
             next();
           })
