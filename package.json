@@ -9,7 +9,11 @@
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon ./src/server/index.js",
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "jest"
+    "test": "jest",
+    "docker-build": "docker build -t hlmitchell/climber .",
+    "docker-run": "docker run -p 49160:8080 hlmitchell/climber",
+    "docker-start": "docker start climber",
+    "docker-stop": "docker stop $(docker ps -a -q --filter status=running)"
   },
   "repository": {
     "type": "git",
@@ -29,6 +33,7 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.3.10",
+    "nodemon": "^1.18.9",
     "path": "^0.12.7",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
