@@ -1,5 +1,5 @@
 # define from what image we want to build from
-FROM node:10
+FROM node:latest
 
 # create a directory to hold the application code inside the image, 
 # this will be the working directory for your application
