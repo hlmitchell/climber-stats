@@ -1,7 +1,11 @@
 const request = require('supertest');
-const { app, server, mongoose } = require('../index.js');
+// const { app, server, mongoose } = require('../index.js');
 
 describe('Test the /signup route', () => {
+
+  // test('meh', () => {
+  //   expect(2+2).toBe(4);
+  // })
 
   test('respond with 200 if new user', async () => {
     const response = await request(app)
