@@ -11,8 +11,7 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "test": "jest",
     "docker-build": "docker build -t hlmitchell/climber .",
-    "docker-run": "docker run --env-file ./env.list hlmitchell/climber",
-    "docker-start": "docker start climber",
+    "docker-run": "docker run --env-file ./env.list -p 8080:3000 hlmitchell/climber",
     "docker-stop-all": "docker stop $(docker ps -a -q --filter status=running)"
   },
   "repository": {

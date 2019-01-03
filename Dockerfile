@@ -1,4 +1,8 @@
 # define from what image we want to build from
+# FROM starts the Dockerfile. It is a requirement that the Dockerfile must start with the FROM 
+# command. Images are created in layers, which means you can use another image as the base image 
+# for your own. The FROM command defines your base layer. As arguments, it takes the name of 
+# the image.
 FROM node:latest
 
 # create a directory to hold the application code inside the image, 
