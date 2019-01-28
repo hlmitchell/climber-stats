@@ -15,4 +15,16 @@ statsRouter.post('/addRoute',
   (req, res) => res.json(res.locals.data)
 );
 
+statsRouter.patch('/updateRoute/:_id',
+  // jwtController.verifyToken,
+  statsController.updateRoute,
+  (req, res) => res.json(res.locals.data)
+)
+
+statsRouter.delete('/deleteRoute/:_id',
+  // jwtController.verifyToken,
+  statsController.deleteRoute,
+  (req, res) => res.json(res.locals.data)
+)
+
 module.exports = statsRouter;
