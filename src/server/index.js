@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // routes
-const statsRoute = require('./routes/statsRoute.js');
+const statsRouter = require('./routes/statsRoute.js');
 
 // controllers
 const userController = require('./controllers/userController.js');
@@ -24,7 +24,7 @@ app.post('/signup', userController.signup, jwtController.createToken, (req, res)
 app.delete('/deleteAccount', jwtController.extractToken, jwtController.verifyToken, userController.deleteUser, (req, res) => res.send());
 
 // routers
-app.use('/stats', statsRoute);
+app.use('/stats', statsRouter);
 
 // error handling routes
 app.use('/*', (req, res) => res.send('404 not found'));
