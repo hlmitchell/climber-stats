@@ -6,6 +6,9 @@ const path = require('path');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+// routes
+const statsRoute = require('./routes/statsRoute.js');
+
 // controllers
 const userController = require('./controllers/userController.js');
 const jwtController = require('./controllers/jwtController.js');
@@ -20,6 +23,10 @@ app.post('/login', userController.login, jwtController.createToken, (req, res) =
 app.post('/signup', userController.signup, jwtController.createToken, (req, res) => res.json(res.locals));
 app.delete('/deleteAccount', jwtController.extractToken, jwtController.verifyToken, userController.deleteUser, (req, res) => res.send());
 
+// routers
+app.use('/stats', statsRoute);
+
+// error handling routes
 app.use('/*', (req, res) => res.send('404 not found'));
 app.use((err, req, res, next) => res.send(err.message));
 
