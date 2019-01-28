@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { app, server, mongoose } = require('../index.js');
+const { app, server, mongoose } = require('../../src/server/index.js');
 
 describe('Test the /signup route', () => {
 
