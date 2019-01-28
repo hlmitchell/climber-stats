@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const statsSchema = new Schema({
   name: String,
-  location: { type: String, require: true },
+  location: { type: String, required: true },
   setting: Boolean, // indoor true, outdoor false
   type: { type: String, required: true },
   rating: { type: String, required: true },
