@@ -26,7 +26,7 @@ module.exports = {
     jwt.verify(res.locals.ssid, process.env.JWT_KEY, (err, authData) => {
       if (err) res.sendStatus(403); // forbidden
       else {
-        res.locals = { authData };
+        res.locals.authData = { authData };
         next();
       }
     })
