@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import LoginComponent from '../components/loginComponent.jsx';
 
 export class LoginContainer extends Component {
   constructor(props) {
     super(props);
-
     this.parseForm = this.parseForm.bind(this);
   }
 
@@ -17,7 +17,10 @@ export class LoginContainer extends Component {
       }
     });
 
-    if (userLogin.hasOwnProperty('email') && userLogin.hasOwnProperty('password')) this.submitForm(userLogin);
+    if (userLogin.hasOwnProperty('email') && userLogin.hasOwnProperty('password')) {
+      console.log('Worked');
+      // this.submitForm(userLogin);
+    }
   }
 
   submitForm(loginData) {
@@ -36,11 +39,7 @@ export class LoginContainer extends Component {
     return (
       <div>
         <h2>Login</h2>
-        <form onSubmit={this.parseForm}>
-          <input name='email' type='text' placeholder='Email'/>
-          <input name='password' type='text' placeholder='Password'/>
-          <button>Login</button>
-        </form>
+        <LoginComponent parseForm={this.parseForm}/>
       </div>
     )
   }
