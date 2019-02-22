@@ -1,4 +1,4 @@
-// this test stops jest from throwing an error for not executing tests here
+// this test stops jest from throwing an error for not executing tests in this file
 describe('dummy', () => {
   it('has a dummy test', () => {
     expect(2+2).toBe(4);
@@ -8,7 +8,6 @@ describe('dummy', () => {
 module.exports = function(app, server, mongoose, request) {
 
   describe('Test the /signup route', () => {
-
     // create a user to ensure token verification works with routes
     test('respond with 200 if new user', async () => {
       const response = await request(app)
@@ -21,7 +20,7 @@ module.exports = function(app, server, mongoose, request) {
       expect(response.statusCode).toBe(200);
     });
 
-    test('should add a route', async () => {
+    test('should add a climbing route', async () => {
       const response = await request(app)
         .post('/stats/updateRoute')
         .set('Accept', 'application/json')
@@ -33,7 +32,7 @@ module.exports = function(app, server, mongoose, request) {
       expect(response.statusCode).toBe(200);
     });
 
-    // test('should delete a route', async () => {
+    // test('should delete a climbing route', async () => {
     //   const response = await request(app)
     //     .post('stats/addRoute')
     //     .set('Accept', 'application/json')
