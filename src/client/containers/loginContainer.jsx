@@ -4,6 +4,12 @@ export class LoginContainer extends Component {
   constructor(props) {
     super(props);
   }
+
+  render() {
+    <div>
+      
+    </div>
+  }
 }
 
 export default LoginContainer;
