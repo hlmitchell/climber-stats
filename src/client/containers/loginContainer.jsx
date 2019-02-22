@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LoginComponent from '../components/loginComponent.jsx';
+import LoginForm from '../components/Forms/loginForm.jsx';
 
 export class LoginContainer extends Component {
   constructor(props) {
@@ -39,7 +39,10 @@ export class LoginContainer extends Component {
     return (
       <div>
         <h2>Login</h2>
-        <LoginComponent parseForm={this.parseForm}/>
+        <LoginForm parseForm={this.parseForm}/>
+          {/* React Router redirects below */}
+        <div>Forgot Password? Reset.</div>
+        <div>Create an account here.</div>
       </div>
     )
   }
