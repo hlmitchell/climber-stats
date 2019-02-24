@@ -17,16 +17,16 @@ export class LoginContainer extends Component {
       }
     });
 
-    if (userLogin.hasOwnProperty('email') && userLogin.hasOwnProperty('password')) {
+    if (userLogin.hasOwnProperty('username') && userLogin.hasOwnProperty('password')) {
       console.log('Worked');
-      // this.submitForm(userLogin);
+      this.submitForm(userLogin);
     }
   }
 
   submitForm(loginData) {
     fetch('/login', {
       method: 'POST',
-      header: {'Content-type': 'application/json'},
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(loginData)
     })
     .then(response => response.json())
