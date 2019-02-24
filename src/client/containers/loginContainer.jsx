@@ -12,7 +12,7 @@ export class LoginContainer extends Component {
     const userLogin = {};
 
     e.target.childNodes.forEach(node => {
-      if (node.type === 'text' && node.value !== '') {
+      if (node.nodeName === 'INPUT' && node.value !== '') {
         userLogin[node.name] = node.value;
       }
     });
