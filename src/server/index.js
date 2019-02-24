@@ -30,11 +30,10 @@ app.use('/stats', statsRouter);
 app.use('/*', (req, res) => res.send('404 not found'));
 app.use((err, req, res, next) => res.send(err.message));
 
-// database connection (no internet right now)
-// mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, (err) => {
-//   if (err) console.log(err);
-//   else console.log('Connected to db');
-// })
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, (err) => {
+  if (err) console.log(err);
+  else console.log('Connected to db');
+})
 
 // server connection
 const server = app.listen(process.env.PORT || 3000, (err) => {
