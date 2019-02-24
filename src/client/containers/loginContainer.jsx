@@ -18,7 +18,6 @@ export class LoginContainer extends Component {
     });
 
     if (userLogin.hasOwnProperty('username') && userLogin.hasOwnProperty('password')) {
-      console.log('Worked');
       this.submitForm(userLogin);
     }
   }
