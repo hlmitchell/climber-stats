@@ -8,13 +8,13 @@ describe('dummy', () => {
 module.exports = function(app, server, mongoose, request) {
 
   describe('Test the /signup route', () => {
-    // create a user to ensure token verification works with routes
+    // login ensure token verification works with routes
     test('respond with 200 if new user', async () => {
       const response = await request(app)
-        .post('/signup')
+        .post('/login')
         .set('Accept', 'application/json')
         .send({
-          username: 'codesmith', 
+          username: 'Cody_Smith', 
           password: 'ilovetesting'
         })
       expect(response.statusCode).toBe(200);
@@ -43,18 +43,6 @@ module.exports = function(app, server, mongoose, request) {
     //     })
     //   expect(response.statusCode).toBe(200);
     // });
-
-    // delete the user after statsRoutes all checked
-    test('delete the user', async () => {
-      const response = await request(app)
-      .delete('/deleteAccount')
-      .set('Accept', 'application/json')
-      .set('Cookie', `ssid=${process.env.TEST_JWT}`)
-      .send({
-        username: "codesmith"
-      })
-      expect(response.statusCode).toBe(200);
-    })
 
     // afterAll((done) => {
     //   // needed for jest to exit properly

@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname +'./../../'))); //serves the index.html
 
 // login routes
-app.post('/login', userController.login, jwtController.createToken, (req, res) => {console.log('hi'); return res.json(res.locals);});
+app.post('/login', userController.login, jwtController.createToken, (req, res) => res.json(res.locals));
 app.post('/signup', userController.signup, jwtController.createToken, (req, res) => res.json(res.locals));
 app.delete('/deleteAccount', jwtController.extractToken, jwtController.verifyToken, userController.deleteUser, (req, res) => res.send());
 
