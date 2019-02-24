@@ -28,5 +28,16 @@ module.exports = {
     fs: "empty",
     net: 'empty'
   },
-  mode: "development",
+
+  // Configure the webpack-dev-server
+  devServer: {
+    // proxy is required in order to make api calls to express server while using hot-reload webpack server
+    // routes api fetch requests from localhost:8080/* to localhost:3000/*
+    proxy: {
+      '/**': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      }
+    },
+  },
 };
