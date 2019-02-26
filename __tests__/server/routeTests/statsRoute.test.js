@@ -10,6 +10,7 @@ module.exports = function(app, server, mongoose, request, jwt) {
   let routeId;
 
   describe('Test the /stats route', () => {
+
     test('should add a climbing route', async () => {
       const response = await request(app)
         .post('/stats/addRoute')
@@ -20,6 +21,18 @@ module.exports = function(app, server, mongoose, request, jwt) {
           "type": "Top Rope",
           "rating": "5.10c"
         })
+      expect(response.statusCode).toBe(200);
+      let responseObj = JSON.parse(response.text);
+      expect(responseObj.hasOwnProperty('_id')).toBeTruthy();
+      routeId = responseObj._id;
+    });
+
+    test('should get a climbing route', async () => {
+      const response = await request(app)
+        .get(`/stats/getRoute/${routeId}`)
+        .set('Accept', 'application/json')
+        .set('Cookie', `ssid=${jwt}`)
+        .send()
       expect(response.statusCode).toBe(200);
       let responseObj = JSON.parse(response.text);
       expect(responseObj.hasOwnProperty('_id')).toBeTruthy();
