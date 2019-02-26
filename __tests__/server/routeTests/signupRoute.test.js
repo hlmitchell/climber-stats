@@ -20,6 +20,7 @@ module.exports = function(app, server, mongoose, request) {
           password: 'ilovetesting'
         })
       expect(response.statusCode).toBe(200);
+      expect(response.headers.hasOwnProperty('set-cookie'));
       expect(response.headers['set-cookie'][0].slice(0, 4)).toBe('ssid');
 
       let ssidString = response.headers['set-cookie'][0];

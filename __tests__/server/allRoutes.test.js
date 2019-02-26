@@ -18,6 +18,7 @@ describe('test all routes', () => {
         password: 'ilovetesting'
       })
     expect(response.statusCode).toBe(200);
+    expect(response.headers.hasOwnProperty('set-cookie'));
     expect(response.headers['set-cookie'][0].slice(0, 4)).toBe('ssid');
     
     let ssidString = response.headers['set-cookie'][0];
@@ -33,6 +34,16 @@ describe('test all routes', () => {
   // is unhappy with me
   signupRouteTest(app, server, mongoose, request);
   statsRouteTest(app, server, mongoose, request, jwt);
+
+  // logout when all tests are done 
+  test('respond with 200 on successful logout', async () => {
+    const response = await request(app)
+      .post('/logout')
+      .set('Accept', 'application/json')
+      .send()
+    expect(response.statusCode).toBe(200);
+    expect(!response.headers.hasOwnProperty('set-cookie'));
+  })
 
   afterAll(done => {
     // needed for jest to exit properly
