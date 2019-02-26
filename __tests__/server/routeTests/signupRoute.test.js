@@ -6,8 +6,6 @@ describe('dummy', () => {
 })
 
 module.exports = function(app, server, mongoose, request) {
-  // jwt for test user
-  let jwt;
 
   describe('Test the /signup route', () => {
 
@@ -20,13 +18,6 @@ module.exports = function(app, server, mongoose, request) {
           password: 'ilovetesting'
         })
       expect(response.statusCode).toBe(200);
-      expect(response.headers.hasOwnProperty('set-cookie'));
-      expect(response.headers['set-cookie'][0].slice(0, 4)).toBe('ssid');
-
-      let ssidString = response.headers['set-cookie'][0];
-      let startIndex = ssidString.indexOf('=') + 1;
-      let endIndex = ssidString.indexOf(';');
-      jwt = ssidString.slice(startIndex, endIndex);
     });
 
     test('respond with 403 if user already exists', async () => {
@@ -54,11 +45,17 @@ module.exports = function(app, server, mongoose, request) {
       const response = await request(app)
       .delete('/deleteAccount')
       .set('Accept', 'application/json')
-      .set('Cookie', `ssid=${jwt}`)
+      .set('Cookie', `ssid=${process.env.TEST_JWT}`)
       .send({
         username: "codesmith"
       })
       expect(response.statusCode).toBe(200);
     })
+
+    // afterAll((done) => {
+    //   // needed for jest to exit properly
+    //   server.close();
+    //   mongoose.connection.close()
+    // });
   })
 } 
