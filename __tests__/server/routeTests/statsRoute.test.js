@@ -5,62 +5,59 @@ describe('dummy', () => {
   })
 })
 
-module.exports = function(app, server, mongoose, request) {
+module.exports = function(app, server, mongoose, request, jwt) {
+  // id of newly added, updated, and deleted route
+  let routeId;
 
-  describe('Test the /signup route', () => {
-    // create a user to ensure token verification works with routes
-    test('respond with 200 if new user', async () => {
-      const response = await request(app)
-        .post('/signup')
-        .set('Accept', 'application/json')
-        .send({
-          username: 'codesmith', 
-          password: 'ilovetesting'
-        })
-      expect(response.statusCode).toBe(200);
-    });
+  describe('Test the /stats route', () => {
 
     test('should add a climbing route', async () => {
       const response = await request(app)
-        .post('/stats/updateRoute')
+        .post('/stats/addRoute')
         .set('Accept', 'application/json')
+        .set('Cookie', `ssid=${jwt}`)
         .send({
           "location": "Boulderdash",
           "type": "Top Rope",
           "rating": "5.10c"
         })
       expect(response.statusCode).toBe(200);
+      let responseObj = JSON.parse(response.text);
+      expect(responseObj.hasOwnProperty('_id')).toBeTruthy();
+      routeId = responseObj._id;
     });
 
-    // test('should delete a climbing route', async () => {
-    //   const response = await request(app)
-    //     .post('stats/addRoute')
-    //     .set('Accept', 'application/json')
-    //     .send({
-    //       "location": "Boulderdash",
-    //       "type": "Top Rope",
-    //       "rating": "5.10c"
-    //     })
-    //   expect(response.statusCode).toBe(200);
-    // });
-
-    // delete the user after statsRoutes all checked
-    test('delete the user', async () => {
+    test('should get a climbing route', async () => {
       const response = await request(app)
-      .delete('/deleteAccount')
-      .set('Accept', 'application/json')
-      .set('Cookie', `ssid=${process.env.TEST_JWT}`)
-      .send({
-        username: "codesmith"
-      })
+        .get(`/stats/getRoute/${routeId}`)
+        .set('Accept', 'application/json')
+        .set('Cookie', `ssid=${jwt}`)
+        .send()
       expect(response.statusCode).toBe(200);
-    })
+      let responseObj = JSON.parse(response.text);
+      expect(responseObj.hasOwnProperty('_id')).toBeTruthy();
+      routeId = responseObj._id;
+    });
 
-    // afterAll((done) => {
-    //   // needed for jest to exit properly
-    //   server.close();
-    //   mongoose.connection.close()
-    // });
+    test('should update a climbing route', async () => {
+      const response = await request(app)
+        .patch(`/stats/updateRoute/${routeId}`)
+        .set('Accept', 'application/json')
+        .set('Cookie', `ssid=${jwt}`)
+        .send({
+          "setting": true
+        })
+      expect(response.statusCode).toBe(200);
+    });
+
+    test('should delete a climbing route', async () => {
+      const response = await request(app)
+        .delete(`/stats/deleteRoute/${routeId}`)
+        .set('Accept', 'application/json')
+        .set('Cookie', `ssid=${jwt}`)
+        .send()
+      expect(response.statusCode).toBe(200);
+    });
   })
 
 }
