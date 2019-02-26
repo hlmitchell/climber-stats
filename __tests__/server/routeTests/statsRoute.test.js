@@ -36,6 +36,15 @@ module.exports = function(app, server, mongoose, request, jwt) {
         })
       expect(response.statusCode).toBe(200);
     });
+
+    test('should delete a climbing route', async () => {
+      const response = await request(app)
+        .delete(`/stats/deleteRoute/${routeId}`)
+        .set('Accept', 'application/json')
+        .set('Cookie', `ssid=${jwt}`)
+        .send()
+      expect(response.statusCode).toBe(200);
+    });
   })
 
 }
