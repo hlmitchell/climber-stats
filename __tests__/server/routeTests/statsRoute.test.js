@@ -5,30 +5,11 @@ describe('dummy', () => {
   })
 })
 
-module.exports = function(app, server, mongoose, request) {
+module.exports = function(app, server, mongoose, request, jwt) {
   // id of newly added, updated, and deleted route
   let routeId;
-  // jwt for test user
-  let jwt;
 
   describe('Test the /stats route', () => {
-    // login ensure token verification works with routes
-    test('respond with 200 if logged in successfully', async () => {
-      const response = await request(app)
-        .post('/login')
-        .set('Accept', 'application/json')
-        .send({
-          username: 'Cody_Smith', 
-          password: 'ilovetesting'
-        })
-      expect(response.statusCode).toBe(200);
-      
-      let ssidString = response.headers['set-cookie'][0];
-      let startIndex = ssidString.indexOf('=') + 1;
-      let endIndex = ssidString.indexOf(';');
-      jwt = ssidString.slice(startIndex, endIndex);
-    });
-
     test('should add a climbing route', async () => {
       const response = await request(app)
         .post('/stats/addRoute')

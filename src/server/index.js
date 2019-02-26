@@ -27,7 +27,7 @@ app.delete('/deleteAccount', jwtController.extractToken, jwtController.verifyTok
 app.use('/stats', statsRouter);
 
 // error handling routes
-app.use('/*', (req, res) => res.send('404 not found'));
+app.use('/*', (req, res) => res.status(404).send('404 not found'));
 app.use((err, req, res, next) => res.send(err.message));
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, (err) => {
