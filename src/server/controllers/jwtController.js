@@ -6,10 +6,7 @@ module.exports = {
     jwt.sign({ username: req.body.username }, process.env.JWT_KEY, /*, { expiresIn: 120 }*/ (err, token) => {
       if (err) res.sendStatus(500); // jwt not created successfully
       else {
-        res.cookie('ssid', token, { 
-          httpOnly: true,
-          expires: new Date(Date.now() + 900000),
-        });
+        res.cookie('ssid', token, { httpOnly: true });
         res.locals = { id: res.locals.id };
         next();
       }
@@ -33,9 +30,5 @@ module.exports = {
         next();
       }
     })
-  },
-
-  removeToken: (req, res, next) => {
-
   }
 }

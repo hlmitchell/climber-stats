@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname +'./../../'))); //serves the index.ht
 
 // login routes
 app.post('/login', userController.login, jwtController.createToken, (req, res) => res.json(res.locals));
-app.post('/logout', userController.logout, jwtController.createToken, (req, res) => res.json(res.locals));
+app.post('/logout', jwtController.extractToken, jwtController.verifyToken, (req, res) => res.clearCookie('ssid').json(res.locals));
 app.post('/signup', userController.signup, jwtController.createToken, (req, res) => res.json(res.locals));
 app.delete('/deleteAccount', jwtController.extractToken, jwtController.verifyToken, userController.deleteUser, (req, res) => res.send());
 
