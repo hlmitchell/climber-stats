@@ -6,6 +6,9 @@ const path = require('path');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+// routes
+const statsRouter = require('./routes/statsRoute.js');
+
 // controllers
 const userController = require('./controllers/userController.js');
 const jwtController = require('./controllers/jwtController.js');
@@ -17,10 +20,17 @@ app.use(express.static(path.join(__dirname +'./../../'))); //serves the index.ht
 
 // login routes
 app.post('/login', userController.login, jwtController.createToken, (req, res) => res.json(res.locals));
+app.post('/logout', jwtController.extractToken, jwtController.verifyToken, (req, res) => res.clearCookie('ssid').json(res.locals));
 app.post('/signup', userController.signup, jwtController.createToken, (req, res) => res.json(res.locals));
 app.delete('/deleteAccount', jwtController.extractToken, jwtController.verifyToken, userController.deleteUser, (req, res) => res.send());
 
-// database connection
+// routers
+app.use('/stats', statsRouter);
+
+// error handling routes
+app.use('/*', (req, res) => res.status(404).send('404 not found'));
+app.use((err, req, res, next) => res.send(err.message));
+
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, (err) => {
   if (err) console.log(err);
   else console.log('Connected to db');
