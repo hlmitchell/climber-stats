@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  web:
+    container_name: web
+    build: ./web/
+    volumes:
+      - './web:/src/client'
+      - './web/package.json:/src/package.json'
+    ports:
+      - '8080:3000'
+    environment:
+      - MONGO_URL=mongodb://hlmitchell:metaco99@ds157843.mlab.com:57843/login
+      - PORT=3000
+      - JWT_KEY=uZYxk170ejuK4H0
+    # depends_on:
+    #   users-service:
+    #     condition: service_started
+    #   locations-service:
+    #     condition: service_started
+    # links:
+    #   - users-service
+    #   - locations-service
